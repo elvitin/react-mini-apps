@@ -27,7 +27,7 @@ $ npm install
 ### `Execute a aplicação com:`
 
 ```bash
-$ npm start
+$ npm run dev
 ```
 
 para iniciar o aplicativo em modo desenvolvimento.\
