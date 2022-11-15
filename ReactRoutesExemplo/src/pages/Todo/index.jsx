@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
+
 import {
   Button,
   ButtonGroup,
@@ -15,6 +16,7 @@ import {
   ToastBody,
   ToastHeader
 } from 'reactstrap';
+
 import {
   TASKITEM_DELETE,
   TASKITEM_POST,
@@ -22,9 +24,7 @@ import {
   TASKLIST_GET
 } from './api';
 
-import './App.css';
-
-function App() {
+function Todo() {
   //debugger;
   function createBaseTask() {
     return { id: null, taskMsg: '', done: false };
@@ -217,4 +217,4 @@ function App() {
   );
 }
 
-export default App;
+export default Todo;
