@@ -1,0 +1,2 @@
+C:\Users\taveira\source\repos\todolist-lp\MainReactRoutes\obj\Debug\MainReactRoutes.esproj.SuggestedBindingRedirects.cache
+C:\Users\taveira\source\repos\todolist-lp\MainReactRoutes\obj\Debug\MainReactRoutes.esproj.CoreCompileInputs.cache
