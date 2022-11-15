@@ -1,44 +1,62 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+
+
+
 namespace TodoListAPI.Controllers
 {
+  static public class ContadorRequisicoes
+  {
+    static public int SalvarCounter = 0;
+    static public int ExcluirCounter = 0;
+    static public int EditarCounter = 0;
+    static public int ObterCounter = 0;
+    static public int ObterTodosCounter = 0;
+  }
+
   [Route("api/[controller]")]
   [ApiController]
   public class TarefaController : ControllerBase
   {
-
     [HttpPost]
     public IActionResult Salvar(ViewModels.TarefaViewModel tarefaVM)
     {
-      Models.Tarefa t = new Models.Tarefa();
-      t.Id = tarefaVM.Id;
-      t.Descricao = tarefaVM.Descricao;
+      Models.Tarefa t = new()
+      {
+        Id = tarefaVM.Id,
+        Descricao = tarefaVM.Descricao
+      };
 
-      TodoListAPI.Services.TarefaService ts = new Services.TarefaService();
+      TodoListAPI.Services.TarefaService ts = new();
       ts.Gravar(t);
-      Console.WriteLine("Salvar tarefa");
+      ContadorRequisicoes.SalvarCounter++;
+      Console.WriteLine($"Salvar tarefa: {ContadorRequisicoes.SalvarCounter}");
       return Ok(t);
     }
-    
+
     [HttpPut("{id}")]
     public IActionResult Alterar(ViewModels.TarefaViewModel tarefaVM, [FromRoute] int id)
     {
-      Models.Tarefa t = new Models.Tarefa();
-      t.Id = id;
-      t.Descricao = tarefaVM.Descricao;
+      Models.Tarefa t = new()
+      {
+        Id = id,
+        Descricao = tarefaVM.Descricao
+      };
 
-      TodoListAPI.Services.TarefaService ts = new Services.TarefaService();
+      TodoListAPI.Services.TarefaService ts = new();
       ts.Gravar(t);
-      Console.WriteLine("Alterar tarefa");
+      ContadorRequisicoes.EditarCounter++;
+      Console.WriteLine($"Editar tarefa: {ContadorRequisicoes.EditarCounter}");
       return Ok(t);
     }
-    
+
     [HttpDelete("{id:int}")]
     public IActionResult Excluir(int id)
     {
-      TodoListAPI.Services.TarefaService ts = new Services.TarefaService();
+      TodoListAPI.Services.TarefaService ts = new();
       ts.Excluir(id);
-      Console.WriteLine("Excluir");
+      ContadorRequisicoes.ExcluirCounter++;
+      Console.WriteLine($"Excluir tarefa: {ContadorRequisicoes.ExcluirCounter}");
       return Ok();
     }
 
@@ -46,15 +64,16 @@ namespace TodoListAPI.Controllers
     [HttpGet("{id:int}")]
     public IActionResult Obter(int id)
     {
-      TodoListAPI.Services.TarefaService ts = new Services.TarefaService();
+      TodoListAPI.Services.TarefaService ts = new();
       var tarefa = ts.Obter(id);
 
-      ViewModels.TarefaViewModel tarefaVM = new ViewModels.TarefaViewModel()
+      ViewModels.TarefaViewModel tarefaVM = new()
       {
         Id = tarefa.Id,
         Descricao = tarefa.Descricao,
       };
-
+      ContadorRequisicoes.ObterCounter++;
+      Console.WriteLine($"Obter tarefa: {ContadorRequisicoes.ObterCounter}");
       return Ok(tarefaVM);
     }
 
@@ -62,8 +81,8 @@ namespace TodoListAPI.Controllers
     [HttpGet]
     public IActionResult ObterTodos()
     {
-      TodoListAPI.Services.TarefaService ts = new Services.TarefaService();
-      System.Console.WriteLine("ObterTodos");
+      TodoListAPI.Services.TarefaService ts = new();
+
       var tarefas = ts.ObterTodos();
 
       List<ViewModels.TarefaViewModel> tarefasVM = new();
@@ -77,6 +96,8 @@ namespace TodoListAPI.Controllers
         });
       }
 
+      ContadorRequisicoes.ObterTodosCounter++;
+      Console.WriteLine($"Obter todas tarefas: {ContadorRequisicoes.ObterTodosCounter}");
       return Ok(tarefasVM);
     }
   }
